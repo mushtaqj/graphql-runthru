@@ -7,7 +7,8 @@ const schema = require('./schema/schema');
 
 // Initialize GraphQL for express
 app.use("/graphql", graphqlHTTP({
-    schema
+    schema,
+    graphiql : true
 }));
 
 app.listen(PORT, () => console.log(`App started on port : ${PORT}`));
