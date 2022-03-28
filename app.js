@@ -1,14 +1,24 @@
 const PORT = 3000;
 const express = require("express");
+const { graphqlHTTP } = require("express-graphql");
+const mongoose = require("mongoose");
+const schema = require("./schema/schema");
 
 const app = express();
-const { graphqlHTTP } = require("express-graphql");
-const schema = require('./schema/schema');
 
-// Initialize GraphQL for express
-app.use("/graphql", graphqlHTTP({
-    schema,
-    graphiql : true
-}));
+const dbUrl = `mongodb+srv://mushtaqj:ushallpass@noderunthru.fnrjzc.mongodb.net/graphql-runthru?retryWrites=true&w=majority`;
 
-app.listen(PORT, () => console.log(`App started on port : ${PORT}`));
+mongoose.connect(dbUrl, () => {
+  console.log("connected db");
+
+  // Initialize GraphQL for express
+  app.use(
+    "/graphql",
+    graphqlHTTP({
+      schema,
+      graphiql: true,
+    })
+  );
+
+  app.listen(PORT, () => console.log(`App started on port : ${PORT}`));
+});
