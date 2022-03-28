@@ -6,19 +6,24 @@ const schema = require("./schema/schema");
 
 const app = express();
 
-const dbUrl = `mongodb+srv://mushtaqj:ushallpass@noderunthru.fnrjzc.mongodb.net/graphql-runthru?retryWrites=true&w=majority`;
+const dbUrl =
+  "mongodb+srv://mushtaqj:ushallpass@noderunthru.frjzc.mongodb.net/graphql-runthru?retryWrites=true&w=majority";
 
-mongoose.connect(dbUrl, () => {
-  console.log("connected db");
+mongoose
+  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connected to Db");
+    // listen for requests
 
-  // Initialize GraphQL for express
-  app.use(
-    "/graphql",
-    graphqlHTTP({
-      schema,
-      graphiql: true,
-    })
-  );
+    app.listen(PORT, () => console.log(`App started on port : ${PORT}`));
+  })
+  .catch((err) => console.error("Error connecting to Db", err));
 
-  app.listen(PORT, () => console.log(`App started on port : ${PORT}`));
-});
+// Initialize GraphQL for express
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+  })
+);
