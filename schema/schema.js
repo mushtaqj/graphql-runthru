@@ -5,6 +5,7 @@ const {
   GraphQLID,
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
 } = require("graphql");
 const _ = require("lodash");
 const Author = require("../models/author");
@@ -39,7 +40,7 @@ const AuthorType = new GraphQLObjectType({
       resolve: (parent, _args) => {
         const { id } = parent;
 
-        return Book.find({ authorId : id});
+        return Book.find({ authorId: id });
       },
     },
   }),
@@ -82,8 +83,8 @@ const Mutation = new GraphQLObjectType({
     addAuthor: {
       type: AuthorType,
       args: {
-        name: { type: GraphQLString },
-        age: { type: GraphQLInt },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
       },
       resolve: (_parent, args) => {
         const { name, age } = args;
@@ -98,9 +99,9 @@ const Mutation = new GraphQLObjectType({
     addBook: {
       type: BookType,
       args: {
-        name: { type: GraphQLString },
-        genre: { type: GraphQLString },
-        authorId: { type: GraphQLID }
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        genre: { type: new GraphQLNonNull(GraphQLString) },
+        authorId: { type: GraphQLID },
       },
       resolve: (_parent, args) => {
         const { name, genre, authorId } = args;
