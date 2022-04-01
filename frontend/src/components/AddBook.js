@@ -30,11 +30,17 @@ const AddBook = () => {
       <div className="field">
         <label>Author:</label>
         <select>
-        <option>Select author</option>
-          {authors.map(author => <option key={author.id}>{author.name}</option>)}
+          <option>Select author</option>
+          {authors.map((author) => (
+            <option key={author.id} value={author.id}>
+              {author.name}
+            </option>
+          ))}
         </select>
       </div>
       <button>+</button>
     </form>
   );
 };
+
+export default AddBook;
