@@ -1,4 +1,4 @@
-const PORT = 3000;
+const PORT = 4000;
 const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const mongoose = require("mongoose");
