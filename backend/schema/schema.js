@@ -54,7 +54,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve: (_parent, args) => {
         const { id } = args;
-        return _.find(books, { id });
+        return Book.findById(id)
       },
     },
     author: {
